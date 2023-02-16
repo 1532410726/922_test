@@ -67,10 +67,17 @@ print(di)
 输出: {1: 'a', 2: 'b', 3: 'c'}
 """
 d2 = {'a': 1, 'b': 2, 'c': 3}
-for key in d2.keys():
-    for valus in d2.values():
-        for items in valus,key:
- print(type(items))
+d3={}
+d5={}
+for k1,v1 in d2.items():
+    d3[v1]= k1
+print(d3)
+print(v1,k1)
+print(d2.items())
+print(d5)
+# d4 = {v2:k2 for k2,v2 in d2.items()}
+# print(d4)
+
 
 
 
