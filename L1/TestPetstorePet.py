@@ -14,6 +14,10 @@ class TestPetstorePet:
         self.base_url = "https://petstore.swagger.io/v2/pet"
         # 拼接查询接口
         self.search_url = self.base_url + "/findByStatus"
+        self.proxy = {
+            "http": "http://127.0.0.1:8888",
+            "https": "http://127.0.0.1:8888"
+        }
 
     # 正常查询
     @pytest.mark.parametrize("status", ["available", "pending"],
@@ -22,7 +26,7 @@ class TestPetstorePet:
         pet_status = {
             "status": status
         }
-        r = requests.get(self.search_url, params=pet_status)
+        r = requests.get(self.search_url, params=pet_status, proxies=self.proxy, verify=False)
         # 打印log
         logger.info(r.status_code)
         assert r.status_code == 200
@@ -35,7 +39,7 @@ class TestPetstorePet:
         pet_status = {
             "status": status
         }
-        r = requests.get(self.search_url, params=pet_status)
+        r = requests.get(self.search_url, params=pet_status, proxies=self.proxy, verify=False)
         # 打印log
         logger.info(r.status_code)
         assert r.status_code == 200
@@ -43,7 +47,7 @@ class TestPetstorePet:
 
     # 不传status参数
     def test_est_search_pet_null(self):
-        r = requests.get(self.search_url)
+        r = requests.get(self.search_url, proxies=self.proxy, verify=False)
         logger.info(r.status_code)
         assert r.status_code == 200
         assert r.json() == []
@@ -53,7 +57,7 @@ class TestPetstorePet:
         pet_status = {
             "key": "value"
         }
-        r = requests.get(self.search_url, params=pet_status)
+        r = requests.get(self.search_url, params=pet_status, proxies=self.proxy, verify=False)
         logger.info(r.status_code)
         assert r.status_code == 200
         assert r.json() == []

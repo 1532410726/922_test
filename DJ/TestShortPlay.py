@@ -19,8 +19,13 @@ def token():
     assert response_data["message"] == "OK!"
     return token
 
-
 class TestShortPlay:
+    def setup_class(self):
+        self.proxy = {
+            "http": "http://127.0.0.1:8888",
+            "https": "http://127.0.0.1:8888"
+        }
+
     def test_get_account(self, token):
         """获取快手账号"""
         url = "https://apitest.dingdingclub.com/sv-invest/kuaishou/baseData/getAccount"
@@ -68,3 +73,31 @@ class TestShortPlay:
         account_data = r.json()
         assert r.status_code == 200
         assert account_data["message"] == "OK!"
+
+    # @pytest.mark.parametrize(
+    #     "body", [
+    #         {
+    #             "titleName": "ceshi12",
+    #             "titleContent": "标题包测试"
+    #         },
+    #         {
+    #             "titleName": "ceshi13",
+    #             "titleContent": "标题包测试"
+    #         }
+    #     ]
+    # )
+    # def test_add_title_package(self,token, body):
+    #     """广告资产—添加标题包"""
+    #     url = "https://apitest.dingdingclub.com/sv-invest/promotionTitlePackage/add"
+    #     headers = {
+    #         'Authorization': f"{token}",
+    #         'Content-Type': 'application/json',
+    #         '__auth_app_name__': 'sv-invest'
+    #     }
+    #     r = requests.post(url, headers=headers, json=body)
+    #     respond_date = r.json()
+    #     assert r.status_code == 200
+    #     assert respond_date["message"] == "OK!"
+
+   #  def test_del_title_package(self, token, body):
+
